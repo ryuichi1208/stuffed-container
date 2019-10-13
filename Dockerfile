@@ -18,8 +18,8 @@ RUN yum -y install \
 	golang
 
 # dotfiles
-COPY --chown=root:root .zshrc /root
-COPY --chown=root:root .vimrc /root
+COPY --chown=root:root dotfile/zshrc.txt /root/.zshrc
+COPY --chown=root:root dotfile/vimrc.txt /root/.vimrc
 
 # python
 COPY --chown=root:root requirements.txt .
