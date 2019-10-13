@@ -16,7 +16,8 @@ jobs:
           name: Build container
           when: always
           command: |
-            docker image build -t stuffed001 .
+            docker image build -t stuffed_${CIRCLE_BUILD_NUM} .
+            docker image ls
 
 workflows:
   version: 2
