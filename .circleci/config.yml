@@ -12,12 +12,19 @@ jobs:
       name: dock-executor
     steps:
       - checkout
+      - restore_cache:
+          keys:
+            - source-{{ checksum "requirements.txt" }}
       - run:
           name: Build container
           when: always
           command: |
             docker image build -t stuffed_${CIRCLE_BUILD_NUM} .
             docker image ls
+      - save_cache:
+          key: ch-cache
+          paths:
+            - requirements.txt
 
 workflows:
   version: 2
