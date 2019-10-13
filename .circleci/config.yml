@@ -4,7 +4,6 @@ executors:
   dock-executor:
     machine:
       enabled: true
-      docker_layer_caching: true
       image: circleci/classic:201808-01
 
 jobs:
