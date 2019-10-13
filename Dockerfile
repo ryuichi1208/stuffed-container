@@ -1,4 +1,3 @@
-
 FROM centos:centos8
 LABEL author="ryuichi1208 <ryucrosskey@gmail.com>"
 LABEL com.example.version="0.0.1-beta"
@@ -23,6 +22,11 @@ ENV LANG ja_JP.UTF-8 \
 	LC_ALL ja_JP.UTF-8 \
 	TZ Asia/Tokyo
 
+# dotfiles
+COPY --chown=root:root dotfiles/vimrc.txt /root/.vimrc
+COPY --chown=root:root dotfiles/zshrc.txt /root/.zshrcopt.zsh
+COPY --chown=root:root dotfiles/prezto.sh /root/prezto.sh
+
 RUN dnf install -y \
 	make \
 	curl \
@@ -35,11 +39,21 @@ RUN dnf install -y \
 	vim \
 	python3 \
 	golang \
-	&& dnf clean all
+	redis \
+	jq
 
-# dotfiles
-COPY --chown=root:root dotfiles/zshrc.txt /root/.zshrc
-COPY --chown=root:root dotfiles/vimrc.txt /root/.vimrc
+# zsh/fzf
+RUN dnf clean all \
+	&& git clone --depth 1 https://github.com/junegunn/fzf.git /root/.fzf \
+        && /root/.fzf/install \
+	&& git clone --recursive https://github.com/sorin-ionescu/prezto.git /root/.zprezto \
+	&& rm -f /root/.zshrc \
+	&& zsh /root/prezto.sh \
+	&& echo "zstyle ':prezto:module:prompt' theme 'paradox'" >> /root/.zpreztorc \
+	&& echo "source /root/.zshrcopt.zsh" >> /root/.zshrc \
+	&& curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh \
+        && mkdir -p ~/.cache/dein \
+	&& sh ./installer.sh /root/.cache/dein
 
 # python
 COPY --chown=root:root requirements.txt .
