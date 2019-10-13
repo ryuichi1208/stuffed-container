@@ -28,19 +28,22 @@ COPY --chown=root:root dotfiles/zshrc.txt /root/.zshrcopt.zsh
 COPY --chown=root:root dotfiles/prezto.sh /root/prezto.sh
 
 RUN dnf install -y \
-	make \
+	cmake \
 	curl \
+	dstat \
+	jq \
 	gdb \
 	git \
-	cmake \
-	net-tools \
-	lsof \
-	zsh \
-	vim \
-	python3 \
 	golang \
+	htop \
+	lsof \
+	make \
+	net-tools \
+	nodejs \
+	python3 \
 	redis \
-	jq
+	vim \
+	zsh \
 
 # zsh/fzf
 RUN dnf clean all \
@@ -53,7 +56,8 @@ RUN dnf clean all \
 	&& echo "source /root/.zshrcopt.zsh" >> /root/.zshrc \
 	&& curl https://raw.githubusercontent.com/Shougo/dein.vim/master/bin/installer.sh > installer.sh \
         && mkdir -p ~/.cache/dein \
-	&& sh ./installer.sh /root/.cache/dein
+	&& sh ./installer.sh /root/.cache/dein \
+	&& npm install markdown-it --save
 
 # python
 COPY --chown=root:root requirements.txt .
