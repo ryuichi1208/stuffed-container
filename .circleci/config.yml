@@ -12,8 +12,6 @@ jobs:
       name: dock-executor
     steps:
       - checkout
-      - setup_remote_docker:
-          version: 18.09.3
       - run:
           name: Build container
           when: always
