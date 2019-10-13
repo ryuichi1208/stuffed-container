@@ -6,26 +6,36 @@ LABEL com.example.version="0.0.1-beta"
 USER root:root
 WORKDIR /home/app001
 
+ARG STUFFED_VERSION="1.0.0"
+ARG STUFFED_ENABLE_ALL=""
+
 # yum
-RUN yum -y update && yum clean all \
-	&& yum install -y glibc-common bash-completion
+RUN dnf -y update \
+	&& dnf upgrade \
+	&& dnf install -y \
+	glibc-common \
+	bash-completion \
+	epel-release \
+        && dnf clean all
+
 ENV LANG ja_JP.UTF-8 \
 	LANGUAGE ja_JP:ja \
-	LC_ALL ja_JP.UTF-8
+	LC_ALL ja_JP.UTF-8 \
+	TZ Asia/Tokyo
 
-RUN yum -y install \
+RUN dnf install -y \
 	make \
 	curl \
 	gdb \
-	strace \
-	devtool \
+	git \
+	cmake \
+	net-tools \
+	lsof \
 	zsh \
 	vim \
-	# neovim \
 	python3 \
 	golang \
-	&& yum clean all \
-	&& ldconfig
+	&& dnf clean all
 
 # dotfiles
 COPY --chown=root:root dotfiles/zshrc.txt /root/.zshrc
@@ -38,6 +48,8 @@ RUN pip3 install -r requirements.txt
 ENV PYTHONUNBUFFERED 1
 
 # golang
+RUN go get -u github.com/labstack/echo \
+	&& go get -v golang.org/x/tools/cmd/goimports
 ENV CGO_ENABLED 0 \
 	GOOS linux
 

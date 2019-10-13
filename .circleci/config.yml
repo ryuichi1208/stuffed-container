@@ -1,0 +1,28 @@
+version: 2.1
+
+executors:
+  dock-executor:
+    machine:
+      enabled: true
+      docker_layer_caching: true
+      image: circleci/classic:201808-01
+
+jobs:
+  container_build:
+    executor:
+      name: dock-executor
+    steps:
+      - checkout
+      - setup_remote_docker:
+          version: 18.09.3
+      - run:
+          name: Build container
+          when: always
+          command: |
+            docker image build -t stuffed001 .
+
+workflows:
+  version: 2
+  defaultWorkflow:
+    jobs:
+      - container_build
