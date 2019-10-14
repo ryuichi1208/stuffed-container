@@ -27,6 +27,7 @@ COPY --chown=root:root dotfiles/vimrc.txt /root/.vimrc
 COPY --chown=root:root dotfiles/zshrc.txt /root/.zshrcopt.zsh
 COPY --chown=root:root dotfiles/prezto.sh /root/prezto.sh
 
+# RUN apk --update add ruby && rm -rf /var/cache/apk/*
 RUN dnf install -y \
 	cmake \
 	curl \
