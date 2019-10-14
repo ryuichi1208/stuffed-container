@@ -58,6 +58,15 @@ RUN dnf clean all \
         && mkdir -p ~/.cache/dein \
 	&& sh ./installer.sh /root/.cache/dein \
 	&& npm install markdown-it --save
+	# && ./configure \
+	#       --with-http_ssl_module \
+              # --with-http_gzip_static_module \
+              # --prefix=/usr/share/nginx \
+              # --sbin-path=/usr/local/sbin/nginx \
+              # --conf-path=/etc/nginx/conf/nginx.conf \
+              # --pid-path=/var/run/nginx.pid \
+              # --http-log-path=/var/log/nginx/access.log \
+              # --error-log-path=/var/log/nginx/error.log \
 
 # python
 COPY --chown=root:root requirements.txt .
