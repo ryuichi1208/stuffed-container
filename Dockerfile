@@ -43,7 +43,7 @@ RUN dnf install -y \
 	python3 \
 	redis \
 	vim \
-	zsh \
+	zsh
 
 # zsh/fzf
 RUN dnf clean all \
