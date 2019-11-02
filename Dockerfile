@@ -84,4 +84,5 @@ ENV CGO_ENABLED 0 \
 # HEALTHCHECK --interval=5m --timeout=3s \
   # CMD curl -f http://localhost/ || exit 1
 
+SHELL ["/bin/zsh"]
 ENTRYPOINT ["/bin/zsh"]
