@@ -1,3 +1,5 @@
+[!build](https://img.shields.io/circleci/build/github/ryuichi1208/stuffed-container/master)
+
 # stuffed-container
 Various stuffed containers :)
 
