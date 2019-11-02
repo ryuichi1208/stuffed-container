@@ -1,4 +1,4 @@
-[!build](https://img.shields.io/circleci/build/github/ryuichi1208/stuffed-container/master)
+[![CircleCI](https://img.shields.io/circleci/build/github/ryuichi1208/stuffed-container/master)](https://circleci.com/gh/ryuichi1208/stuffed-container)
 
 # stuffed-container
 Various stuffed containers :)
